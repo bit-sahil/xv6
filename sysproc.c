@@ -89,3 +89,11 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// return how many read() system calls are made
+// since start.
+int
+sys_getreadcount(void)
+{
+  return readcount;
+}
