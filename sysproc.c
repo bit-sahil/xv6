@@ -95,5 +95,11 @@ sys_uptime(void)
 int
 sys_getreadcount(void)
 {
-  return readcount;
+  // todo: what's the use of acquiring lock here?
+  uint xreadcount;
+
+  acquire(&readcountlock);
+  xreadcount = readcount;
+  release(&readcountlock);
+  return xreadcount;
 }

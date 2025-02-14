@@ -139,7 +139,9 @@ syscall(void)
   num = curproc->tf->eax;
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     if(num == SYS_read) {
-        readcount++;
+      acquire(&readcountlock);
+      readcount++;
+      release(&readcountlock);
     }
 
     curproc->tf->eax = syscalls[num]();

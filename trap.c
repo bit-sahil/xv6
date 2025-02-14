@@ -14,6 +14,7 @@ extern uint vectors[];  // in vectors.S: array of 256 entry pointers
 struct spinlock tickslock;
 uint ticks;
 uint readcount;
+struct spinlock readcountlock;
 
 void
 tvinit(void)
@@ -31,6 +32,12 @@ void
 idtinit(void)
 {
   lidt(idt, sizeof(idt));
+}
+
+void
+rclinit(void)
+{
+  initlock(&readcountlock, "readcount");
 }
 
 //PAGEBREAK: 41
